@@ -11,15 +11,16 @@ import (
 	"time"
 
 	"github.com/go-chi/chi"
-	"github.com/golang-migrate/migrate/v4"
-	"github.com/golang-migrate/migrate/v4/database/mongodb"
-	_ "github.com/golang-migrate/migrate/v4/source/file"
 
 	"github.com/dannypaul/go-skeleton/config"
 	"github.com/dannypaul/go-skeleton/internal/driver/platform/mongo"
 	"github.com/dannypaul/go-skeleton/internal/iam"
 	"github.com/dannypaul/go-skeleton/internal/middleware"
 	"github.com/dannypaul/go-skeleton/internal/notification"
+
+	"github.com/golang-migrate/migrate/v4"
+	"github.com/golang-migrate/migrate/v4/database/mongodb"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
 func main() {
@@ -30,6 +31,8 @@ func main() {
 
 	ctx := context.Background()
 	mongoDbClient := mongo.Connect(ctx)
+
+	fmt.Print("starting database migration")
 
 	migrationDriver, err := mongodb.WithInstance(mongoDbClient.Client, &mongodb.Config{DatabaseName: conf.MongoDbName})
 	if err != nil {
@@ -45,6 +48,8 @@ func main() {
 	if err != nil && err != migrate.ErrNoChange {
 		log.Fatal(fmt.Errorf("error running migration %w", err))
 	}
+
+	fmt.Print("successfully completed database migration")
 
 	notificationService := notification.NewService()
 
