@@ -1,0 +1,17 @@
+# Dependency directories
+vendor/
+
+# Logs
+logs
+*.log
+
+# Build
+build/
+target/
+
+# Editor
+.idea
+.vscode
+
+# Misc
+.DS_STORE

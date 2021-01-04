@@ -1,0 +1,15 @@
+[
+  {
+    "createIndexes": "challenges",
+    "indexes": [
+      {
+        "key": {
+          "phone.number": 1
+        },
+        "name": "phone_number_asc",
+        "unique": true,
+        "sparse": true
+      }
+    ]
+  }
+]

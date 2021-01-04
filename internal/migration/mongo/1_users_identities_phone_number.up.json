@@ -1,0 +1,15 @@
+[
+  {
+    "createIndexes": "users",
+    "indexes": [
+      {
+        "key": {
+          "identities.phone.number": 1
+        },
+        "name": "identities_phone_number_asc",
+        "unique": true,
+        "sparse": true
+      }
+    ]
+  }
+]

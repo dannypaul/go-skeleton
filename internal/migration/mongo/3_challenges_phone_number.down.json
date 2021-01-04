@@ -1,0 +1,6 @@
+[
+  {
+    "dropIndexes": "challenges",
+    "index": "phone_number_asc"
+  }
+]

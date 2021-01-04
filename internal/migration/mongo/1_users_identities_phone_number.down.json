@@ -1,0 +1,6 @@
+[
+  {
+    "dropIndexes": "users",
+    "index": "identities_phone_number_asc"
+  }
+]

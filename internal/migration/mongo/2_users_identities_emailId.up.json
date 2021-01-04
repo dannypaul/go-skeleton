@@ -1,0 +1,15 @@
+[
+  {
+    "createIndexes": "users",
+    "indexes": [
+      {
+        "key": {
+          "identities.emailId": 1
+        },
+        "name": "identities_emailId_asc",
+        "unique": true,
+        "sparse": true
+      }
+    ]
+  }
+]
