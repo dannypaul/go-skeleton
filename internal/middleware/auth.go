@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/dgrijalva/jwt-go"
 	"github.com/dannypaul/go-skeleton/config"
 	"github.com/dannypaul/go-skeleton/internal/iam"
+	"github.com/dgrijalva/jwt-go"
 )
 
 // AuthMiddleware decodes the token in Authorization header and packs it into context
@@ -49,7 +49,6 @@ func AuthMiddleware(next http.Handler) http.Handler {
 		}
 
 		ctx := context.WithValue(r.Context(), iam.CtxClaimsKey, claims)
-		r = r.WithContext(ctx)
-		next.ServeHTTP(w, r)
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
