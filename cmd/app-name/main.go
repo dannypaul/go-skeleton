@@ -70,8 +70,8 @@ func main() {
 		Handler: router,
 	}
 
-	var gracefulStop = make(chan os.Signal, 1)
-	signal.Notify(gracefulStop, syscall.SIGINT, syscall.SIGKILL, syscall.SIGTERM)
+	var osSignal = make(chan os.Signal, 1)
+	signal.Notify(osSignal, syscall.SIGINT, syscall.SIGKILL, syscall.SIGTERM)
 
 	go func() {
 		if err = server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
@@ -80,7 +80,7 @@ func main() {
 	}()
 
 	log.Println("Successfully started server")
-	s := <-gracefulStop
+	s := <-osSignal
 	log.Printf("Received signal: %+v", s)
 
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
