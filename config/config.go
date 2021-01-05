@@ -29,15 +29,15 @@ func (e env) emptyKeys() []string {
 }
 
 type Config struct {
-	Port            string
-	MigrationPath   string
-	SeedEmailId     string
-	SeedPhoneNumber string
-	MongoURI        string
-	MongoDbName     string
-	JwtSecret       string
-	JwtTTL          time.Duration
-	ChallengeTTL    time.Duration
+	Port                string
+	MigrationSourcePath string
+	SeedEmailId         string
+	SeedPhoneNumber     string
+	MongoURI            string
+	MongoDbName         string
+	JwtSecret           string
+	JwtTTL              time.Duration
+	ChallengeTTL        time.Duration
 }
 
 // Get creates the config by reading the environment variables
@@ -46,7 +46,7 @@ func Get() (Config, error) {
 
 	conf.Port = e.lookup("PORT")
 
-	conf.MigrationPath = e.lookup("MIGRATION_PATH")
+	conf.MigrationSourcePath = e.lookup("MIGRATION_SOURCE_PATH")
 
 	conf.SeedEmailId = e.lookup("SEED_EMAIL_ID")
 	conf.SeedPhoneNumber = e.lookup("SEED_PHONE_NUMBER")

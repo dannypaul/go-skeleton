@@ -39,7 +39,7 @@ func main() {
 		log.Fatal(fmt.Errorf("error initialising MongoDB migration driver %w", err))
 	}
 
-	migration, err := migrate.NewWithDatabaseInstance(conf.MigrationPath, conf.MongoDbName, migrationDriver)
+	migration, err := migrate.NewWithDatabaseInstance(conf.MigrationSourcePath, conf.MongoDbName, migrationDriver)
 	if err != nil {
 		log.Fatal(fmt.Errorf("error initialising migration %w", err))
 	}
