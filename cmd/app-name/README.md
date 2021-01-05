@@ -1,6 +1,6 @@
 ## Database migration
 
-Database changes are executed using `[golang-migrate](https://github.com/golang-migrate/migrate)`.
+Database changes are executed using [golang-migrate](https://github.com/golang-migrate/migrate).
 
 ## Graceful shutdown
 
