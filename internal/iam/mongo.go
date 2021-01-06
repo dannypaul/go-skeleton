@@ -1,7 +1,7 @@
 package iam
 
 import (
-	"github.com/dannypaul/go-skeleton/config"
+	"github.com/dannypaul/go-skeleton/internal/config"
 	"github.com/dannypaul/go-skeleton/internal/driver/platform/mongo"
 )
 

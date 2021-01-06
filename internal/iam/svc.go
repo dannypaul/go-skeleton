@@ -7,7 +7,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 
-	"github.com/dannypaul/go-skeleton/config"
+	"github.com/dannypaul/go-skeleton/internal/config"
 	"github.com/dannypaul/go-skeleton/internal/exception"
 	"github.com/dannypaul/go-skeleton/internal/notification"
 	"github.com/dannypaul/go-skeleton/internal/primitive"

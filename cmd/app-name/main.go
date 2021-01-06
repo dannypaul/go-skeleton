@@ -12,7 +12,7 @@ import (
 
 	"github.com/go-chi/chi"
 
-	"github.com/dannypaul/go-skeleton/config"
+	"github.com/dannypaul/go-skeleton/internal/config"
 	"github.com/dannypaul/go-skeleton/internal/driver/platform/mongo"
 	"github.com/dannypaul/go-skeleton/internal/iam"
 	"github.com/dannypaul/go-skeleton/internal/middleware"

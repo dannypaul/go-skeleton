@@ -3,7 +3,7 @@ package iam
 import (
 	"time"
 
-	"github.com/dannypaul/go-skeleton/config"
+	"github.com/dannypaul/go-skeleton/internal/config"
 	"github.com/dannypaul/go-skeleton/internal/exception"
 	"github.com/dannypaul/go-skeleton/internal/primitive"
 	"github.com/dannypaul/go-skeleton/internal/repository"

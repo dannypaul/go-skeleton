@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/dannypaul/go-skeleton/config"
+	"github.com/dannypaul/go-skeleton/internal/config"
 	"github.com/dannypaul/go-skeleton/internal/exception"
 	"github.com/dannypaul/go-skeleton/internal/kit"
 	"github.com/dannypaul/go-skeleton/internal/primitive"
