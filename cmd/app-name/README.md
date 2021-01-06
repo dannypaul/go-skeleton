@@ -29,17 +29,17 @@ When our server receives an OS signal to shut down we do the following:
 
 The following code executes before the `main` func returns. All code to release shared resources are executed here.
 ```go
-	defer func() {
-		log.Print("Server shutdown successful")
+defer func() {
+	log.Print("Server shutdown successful")
 
-		// Release all shared resources
-		mongo.Disconnect(mongoDbClient)
+	// Release all shared resources
+	mongo.Disconnect(mongoDbClient)
 
-		log.Print("Released all shared resources")
+	log.Print("Released all shared resources")
 
-		cancel()
+	cancel()
 
-		os.Exit(0)
-	}()
+	os.Exit(0)
+}()
 ```
                      

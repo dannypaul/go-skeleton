@@ -6,12 +6,13 @@ import (
 	"strings"
 
 	"github.com/dannypaul/go-skeleton/internal/config"
+	"github.com/dannypaul/go-skeleton/internal/header"
 	"github.com/dannypaul/go-skeleton/internal/iam"
+
 	"github.com/dgrijalva/jwt-go"
 )
 
-// AuthMiddleware decodes the token in Authorization header and packs it into context
-func AuthMiddleware(next http.Handler) http.Handler {
+func Auth(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		conf, err := config.Get()
 		if err != nil {
@@ -20,7 +21,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 		}
 
 		var claims iam.Claims
-		authHeader := r.Header.Get("Authorization")
+		authHeader := r.Header.Get(header.Authorization)
 		if authHeader == "" {
 			ctx := context.WithValue(r.Context(), iam.CtxClaimsKey, claims)
 			r = r.WithContext(ctx)

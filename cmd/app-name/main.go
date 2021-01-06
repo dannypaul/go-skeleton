@@ -32,7 +32,7 @@ func main() {
 	ctx := context.Background()
 	mongoDbClient := mongo.Connect(ctx)
 
-	fmt.Print("starting database migration")
+	log.Print("Starting database migration")
 
 	migrationDriver, err := mongodb.WithInstance(mongoDbClient.Client, &mongodb.Config{DatabaseName: conf.MongoDbName})
 	if err != nil {
@@ -49,7 +49,7 @@ func main() {
 		log.Fatal(fmt.Errorf("error running migration %w", err))
 	}
 
-	fmt.Print("successfully completed database migration")
+	log.Print("Successfully completed database migration")
 
 	notificationService := notification.NewService()
 
@@ -61,7 +61,7 @@ func main() {
 
 	router := chi.NewRouter()
 
-	router.Use(middleware.RequestIdMiddleware, middleware.AuthMiddleware)
+	router.Use(middleware.RequestId, middleware.Auth)
 
 	router.Mount("/identity", iam.Router(iamService))
 

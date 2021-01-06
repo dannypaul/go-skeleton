@@ -10,10 +10,11 @@ import (
 	"strings"
 
 	"github.com/dannypaul/go-skeleton/internal/exception"
+	"github.com/dannypaul/go-skeleton/internal/header"
 )
 
 func DecodeReq(w http.ResponseWriter, r *http.Request, dst interface{}) error {
-	if strings.Split(r.Header.Get("Content-Type"), ";")[0] != "application/json" {
+	if strings.Split(r.Header.Get(header.ContentType), ";")[0] != "application/json" {
 		message := "Content-Type header is not application/json"
 		http.Error(w, message, http.StatusUnsupportedMediaType)
 		return errors.New(message)
@@ -79,7 +80,7 @@ type ErrorRes struct {
 }
 
 func EncodeRes(w http.ResponseWriter, r *http.Request, res interface{}, err error) {
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set(header.ContentType, "application/json")
 	if err != nil {
 		errList := ErrorRes{
 			Errors:    []Error{{Message: exception.Message(err.Error()), Code: err.Error()}},
