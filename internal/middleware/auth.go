@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/dannypaul/go-skeleton/internal/config"
-	"github.com/dannypaul/go-skeleton/internal/header"
 	"github.com/dannypaul/go-skeleton/internal/iam"
+	"github.com/dannypaul/go-skeleton/internal/kit/http/header"
 
 	"github.com/dgrijalva/jwt-go"
 )

@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	"github.com/dannypaul/go-skeleton/internal/exception"
-	"github.com/dannypaul/go-skeleton/internal/header"
+	"github.com/dannypaul/go-skeleton/internal/kit/http/header"
 )
 
 func DecodeReq(w http.ResponseWriter, r *http.Request, dst interface{}) error {

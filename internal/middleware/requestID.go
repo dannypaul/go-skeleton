@@ -2,9 +2,11 @@ package middleware
 
 import (
 	"context"
-	"github.com/dannypaul/go-skeleton/internal/header"
-	"github.com/google/uuid"
 	"net/http"
+
+	"github.com/dannypaul/go-skeleton/internal/kit/http/header"
+
+	"github.com/google/uuid"
 )
 
 func RequestId(next http.Handler) http.Handler {
