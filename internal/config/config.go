@@ -40,7 +40,6 @@ type Config struct {
 	ChallengeTTL        time.Duration
 }
 
-// Get creates the config by reading the environment variables
 func Get() (Config, error) {
 	var conf Config
 
