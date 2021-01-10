@@ -1,6 +1,6 @@
 # Golang Skeleton
 
-This is an opinionated way to implement a production ready enterprise grade service in golang.
+This is an opinionated way to implement a production ready service in Golang.
 
 
 ## Table of contents
@@ -11,6 +11,7 @@ This is an opinionated way to implement a production ready enterprise grade serv
    * [Middleware](https://github.com/dannypaul/go-skeleton/tree/master/internal/middleware)
         * [Request ID middleware](https://github.com/dannypaul/go-skeleton/tree/master/internal/middleware#request-id-middleware)
         * [Auth middleware](https://github.com/dannypaul/go-skeleton/tree/master/internal/middleware#auth-middleware)
+   * Documentation 🚧
    * Testing 🚧
    * Telemetry 🚧
         * Tracing
@@ -23,5 +24,6 @@ This is an opinionated way to implement a production ready enterprise grade serv
    * Request validation 🚧
    * Audit logging 🚧
    * Deployment 🚧
+        * Semantic versioning
         * Docker
         * Kubernetes
