@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -21,35 +20,37 @@ import (
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/mongodb"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
+
+	"github.com/rs/zerolog/log"
 )
 
 func main() {
 	conf, err := config.Get()
 	if err != nil {
-		log.Fatal(fmt.Errorf("error reading environment variables %w", err))
+		log.Fatal().Err(fmt.Errorf("error reading environment variables %w", err))
 	}
 
 	ctx := context.Background()
 	mongoDbClient := mongo.Connect(ctx)
 
-	log.Print("Starting database migration")
+	log.Info().Msg("Starting database migration")
 
 	migrationDriver, err := mongodb.WithInstance(mongoDbClient.Client, &mongodb.Config{DatabaseName: conf.MongoDbName})
 	if err != nil {
-		log.Fatal(fmt.Errorf("error initialising MongoDB migration driver %w", err))
+		log.Fatal().Err(fmt.Errorf("error initialising MongoDB migration driver %w", err))
 	}
 
 	migration, err := migrate.NewWithDatabaseInstance(conf.MigrationSourcePath, conf.MongoDbName, migrationDriver)
 	if err != nil {
-		log.Fatal(fmt.Errorf("error initialising migration %w", err))
+		log.Fatal().Err(fmt.Errorf("error initialising migration %w", err))
 	}
 
 	err = migration.Up()
 	if err != nil && err != migrate.ErrNoChange {
-		log.Fatal(fmt.Errorf("error running migration %w", err))
+		log.Fatal().Err(fmt.Errorf("error running migration %w", err))
 	}
 
-	log.Print("Successfully completed database migration")
+	log.Info().Msg("Successfully completed database migration")
 
 	notificationService := notification.NewService()
 
@@ -75,22 +76,22 @@ func main() {
 
 	go func() {
 		if err = server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatalf("Server stopped with error: %+v", err)
+			log.Fatal().Err(fmt.Errorf("server stopped with error: %+v", err))
 		}
 	}()
 
-	log.Println("Successfully started server")
+	log.Info().Msg("Successfully started server")
 	s := <-osSignal
-	log.Printf("Received signal: %+v", s)
+	log.Info().Msgf("Received signal: %+v", s)
 
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer func() {
-		log.Print("Server shutdown successful")
+		log.Info().Msg("Server shutdown successful")
 
 		// Release all shared resources
 		mongo.Disconnect(mongoDbClient)
 
-		log.Print("Released all shared resources")
+		log.Info().Msg("Released all shared resources")
 
 		cancel()
 
@@ -99,6 +100,6 @@ func main() {
 
 	err = server.Shutdown(ctx)
 	if err != nil {
-		log.Printf("Server shutdown failed %+v", err)
+		log.Info().Msgf("Server shutdown failed %+v", err)
 	}
 }

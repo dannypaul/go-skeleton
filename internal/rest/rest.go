@@ -5,12 +5,13 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"strings"
 
 	"github.com/dannypaul/go-skeleton/internal/exception"
 	"github.com/dannypaul/go-skeleton/internal/kit/http/header"
+
+	"github.com/rs/zerolog/log"
 )
 
 func DecodeReq(w http.ResponseWriter, r *http.Request, dst interface{}) error {
@@ -88,7 +89,7 @@ func EncodeRes(w http.ResponseWriter, r *http.Request, res interface{}, err erro
 		}
 
 		errListJson, _ := json.Marshal(errList)
-		log.Print(string(errListJson))
+		log.Info().Msg(string(errListJson))
 
 		status := exception.HttpStatus(err.Error())
 		w.WriteHeader(status)
