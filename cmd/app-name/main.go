@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 	"os"
 	"os/signal"
@@ -28,12 +27,12 @@ import (
 func main() {
 	conf, err := config.Get()
 	if err != nil {
-		log.Fatal().Msg(fmt.Errorf("error reading environment variables %w", err).Error())
+		log.Fatal().Err(err).Msg("error reading environment variables")
 	}
 
 	logLevel, err := zerolog.ParseLevel(conf.LogLevel)
 	if err != nil {
-		log.Fatal().Err(fmt.Errorf("error generating log level %w", err))
+		log.Fatal().Err(err).Msg("error generating log level")
 	}
 	log.Info().Msg("Log level set to " + logLevel.String())
 	zerolog.SetGlobalLevel(logLevel)
@@ -45,17 +44,17 @@ func main() {
 
 	migrationDriver, err := mongodb.WithInstance(mongoDbClient.Client, &mongodb.Config{DatabaseName: conf.MongoDbName})
 	if err != nil {
-		log.Fatal().Err(fmt.Errorf("error initialising MongoDB migration driver %w", err))
+		log.Fatal().Err(err).Msg("error initialising MongoDB migration driver")
 	}
 
 	migration, err := migrate.NewWithDatabaseInstance(conf.MigrationSourcePath, conf.MongoDbName, migrationDriver)
 	if err != nil {
-		log.Fatal().Err(fmt.Errorf("error initialising migration %w", err))
+		log.Fatal().Err(err).Msg("error initialising migration")
 	}
 
 	err = migration.Up()
 	if err != nil && err != migrate.ErrNoChange {
-		log.Fatal().Err(fmt.Errorf("error running migration %w", err))
+		log.Fatal().Err(err).Msg("error running migration")
 	}
 
 	log.Info().Msg("Successfully completed database migration")
@@ -84,7 +83,7 @@ func main() {
 
 	go func() {
 		if err = server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatal().Err(fmt.Errorf("server stopped with error: %+v", err))
+			log.Fatal().Err(err).Msg("server stopped because of an error")
 		}
 	}()
 
