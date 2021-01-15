@@ -21,14 +21,22 @@ import (
 	"github.com/golang-migrate/migrate/v4/database/mongodb"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 
+	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
 
 func main() {
 	conf, err := config.Get()
 	if err != nil {
-		log.Fatal().Err(fmt.Errorf("error reading environment variables %w", err))
+		log.Fatal().Msg(fmt.Errorf("error reading environment variables %w", err).Error())
 	}
+
+	logLevel, err := zerolog.ParseLevel(conf.LogLevel)
+	if err != nil {
+		log.Fatal().Err(fmt.Errorf("error generating log level %w", err))
+	}
+	log.Info().Msg("Log level set to " + logLevel.String())
+	zerolog.SetGlobalLevel(logLevel)
 
 	ctx := context.Background()
 	mongoDbClient := mongo.Connect(ctx)
@@ -82,7 +90,7 @@ func main() {
 
 	log.Info().Msg("Successfully started server")
 	s := <-osSignal
-	log.Info().Msgf("Received signal: %+v", s)
+	log.Info().Msgf("Received os signal: %+v", s)
 
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer func() {

@@ -38,6 +38,7 @@ type Config struct {
 	JwtSecret           string
 	JwtTTL              time.Duration
 	ChallengeTTL        time.Duration
+	LogLevel            string
 }
 
 func Get() (Config, error) {
@@ -52,6 +53,8 @@ func Get() (Config, error) {
 
 	conf.MongoURI = e.lookup("MONGO_URI")
 	conf.MongoDbName = e.lookup("MONGO_DB_NAME")
+
+	conf.LogLevel = e.lookup("LOG_LEVEL")
 
 	conf.JwtSecret = e.lookup("JWT_SECRET")
 	jwtTTL, err := time.ParseDuration(e.lookup("JWT_TTL"))
