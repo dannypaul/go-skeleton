@@ -27,12 +27,12 @@ import (
 func main() {
 	conf, err := config.Get()
 	if err != nil {
-		log.Fatal().Err(err).Msg("error reading environment variables")
+		log.Fatal().Err(err).Msg("Error reading environment variables")
 	}
 
 	logLevel, err := zerolog.ParseLevel(conf.LogLevel)
 	if err != nil {
-		log.Fatal().Err(err).Msg("error generating log level")
+		log.Fatal().Err(err).Msg("Error generating log level")
 	}
 	log.Info().Msg("Log level set to " + logLevel.String())
 	zerolog.SetGlobalLevel(logLevel)
@@ -49,12 +49,12 @@ func main() {
 
 	migration, err := migrate.NewWithDatabaseInstance(conf.MigrationSourcePath, conf.MongoDbName, migrationDriver)
 	if err != nil {
-		log.Fatal().Err(err).Msg("error initialising migration")
+		log.Fatal().Err(err).Msg("Error initialising migration")
 	}
 
 	err = migration.Up()
 	if err != nil && err != migrate.ErrNoChange {
-		log.Fatal().Err(err).Msg("error running migration")
+		log.Fatal().Err(err).Msg("Error running migration")
 	}
 
 	log.Info().Msg("Successfully completed database migration")
@@ -83,7 +83,7 @@ func main() {
 
 	go func() {
 		if err = server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatal().Err(err).Msg("server stopped because of an error")
+			log.Fatal().Err(err).Msg("Server stopped because of an error")
 		}
 	}()
 

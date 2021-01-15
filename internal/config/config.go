@@ -3,6 +3,7 @@ package config
 import (
 	"errors"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -71,7 +72,11 @@ func Get() (Config, error) {
 
 	emptyKeys := e.emptyKeys()
 	if len(emptyKeys) > 0 {
-		err := errors.New("the following environment variables are not set:" + strings.Join(emptyKeys[:], ","))
+		missingEnvVars := strings.Join(emptyKeys[:], ",")
+		err := errors.New("There are " + strconv.Itoa(len(emptyKeys)) + " missing environment variables: " + missingEnvVars)
+		if len(emptyKeys) == 1 {
+			err = errors.New("There is 1 missing environment variable: " + missingEnvVars)
+		}
 		return Config{}, err
 	}
 
