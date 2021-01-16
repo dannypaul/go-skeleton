@@ -96,7 +96,7 @@ func EncodeRes(w http.ResponseWriter, r *http.Request, res interface{}, err erro
 
 		if status == http.StatusInternalServerError {
 			errList = ErrorRes{
-				Errors:    []Error{{Message: exception.Message(err.Error()), Code: http.StatusText(status)}},
+				Errors:    []Error{{Message: exception.Message(err.Error()), Code: exception.InternalServerError}},
 				RequestId: r.Context().Value("requestId").(string),
 			}
 		}

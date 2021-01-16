@@ -24,4 +24,15 @@ The `errors` key of the json response contains the list of error codes and their
 
 All possible error codes, error messages, and their http status code can be found in the `internal/exception` package.
 
+When an unknown error (one that is not defined in `internal/exception`) occurs `EncodeRes` responds with:
+```json
+{
+	"errors": [{
+		"code": "internalServerError",
+		"message": "Internal Server Error"
+	}],
+	"requestId": "<request-id>"
+}
+```
+
 All the error responses are automatically logged by `func EncodeRes(w http.ResponseWriter, r *http.Request, res interface{}, err error)` at `info` level
