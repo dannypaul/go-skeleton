@@ -8,13 +8,13 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/go-chi/chi"
-
 	"github.com/dannypaul/go-skeleton/internal/config"
 	"github.com/dannypaul/go-skeleton/internal/driver/platform/mongo"
 	"github.com/dannypaul/go-skeleton/internal/iam"
 	"github.com/dannypaul/go-skeleton/internal/middleware"
 	"github.com/dannypaul/go-skeleton/internal/notification"
+
+	"github.com/go-chi/chi"
 
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/mongodb"

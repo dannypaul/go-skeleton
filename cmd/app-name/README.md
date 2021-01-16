@@ -42,4 +42,18 @@ defer func() {
 	os.Exit(0)
 }()
 ```
-                     
+
+## Logging
+
+Logs are generated using [zerolog](https://github.com/rs/zerolog).
+
+The log level can be set using the environment variable `LOG_LEVEL`.
+
+`LOG_LEVEL` can take the following values:
+- trace
+- debug
+- info
+- warn
+- error
+- fatal
+- panic                     
