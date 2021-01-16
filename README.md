@@ -22,6 +22,8 @@ This is an opinionated way to implement a production ready service in Golang.
         * Connection pooling
         * Circuit breaking
    * Error handling 🚧
+        * [Error response](https://github.com/dannypaul/go-skeleton/tree/master/internal/rest)
+        * Error codes
    * Request validation 🚧
    * Audit logging 🚧
    * Deployment 🚧
