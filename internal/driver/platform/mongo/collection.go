@@ -57,6 +57,10 @@ func (c Collection) SetAll(ctx context.Context, filters []repository.Filter, key
 }
 
 func (c Collection) SetById(ctx context.Context, id primitive.Id, Key string, Value interface{}) error {
+	if id.IsValid() == false {
+		return exception.ErrIdInvalid
+	}
+
 	match := bson.D{{"_id", id}}
 
 	setter := bson.D{{Key, Value}}
@@ -73,6 +77,10 @@ func (c Collection) SetById(ctx context.Context, id primitive.Id, Key string, Va
 }
 
 func (c Collection) SetAllById(ctx context.Context, id primitive.Id, keyValues []repository.KeyValue) error {
+	if id.IsValid() == false {
+		return exception.ErrIdInvalid
+	}
+
 	match := bson.D{{"_id", id}}
 
 	setters := bson.D{}
@@ -109,6 +117,10 @@ func (c Collection) UnSet(ctx context.Context, filters []repository.Filter, Key 
 }
 
 func (c Collection) Patch(ctx context.Context, id primitive.Id, patches []repository.Patch) error {
+	if id.IsValid() == false {
+		return exception.ErrIdInvalid
+	}
+
 	match := bson.D{{"_id", id}}
 
 	patch := bson.D{}
@@ -127,6 +139,10 @@ func (c Collection) Patch(ctx context.Context, id primitive.Id, patches []reposi
 }
 
 func (c Collection) IncrementById(ctx context.Context, id primitive.Id, Key string, incrementBy int) error {
+	if id.IsValid() == false {
+		return exception.ErrIdInvalid
+	}
+
 	match := bson.D{{"_id", id}}
 	update := bson.D{{"$inc", bson.D{{Key, incrementBy}}}}
 
@@ -172,6 +188,10 @@ func (c Collection) Create(ctx context.Context, model interface{}) (repository.C
 }
 
 func (c Collection) FindById(ctx context.Context, id primitive.Id) (repository.Copier, error) {
+	if id.IsValid() == false {
+		return nil, exception.ErrIdInvalid
+	}
+
 	singleResult := c.FindOne(ctx, bson.M{"_id": id})
 	if singleResult.Err() != nil && errors.Is(singleResult.Err(), mongo.ErrNoDocuments) {
 		return nil, exception.ErrNotFound
@@ -180,6 +200,10 @@ func (c Collection) FindById(ctx context.Context, id primitive.Id) (repository.C
 }
 
 func (c Collection) Delete(ctx context.Context, id primitive.Id) (int64, error) {
+	if id.IsValid() == false {
+		return 0, exception.ErrIdInvalid
+	}
+
 	deleteResult, err := c.DeleteOne(ctx, bson.M{"_id": id})
 	if err != nil {
 		return 0, err
@@ -224,6 +248,10 @@ func (c Collection) FindSingle(ctx context.Context, filters []repository.Filter)
 }
 
 func (c Collection) Replace(ctx context.Context, id primitive.Id, value interface{}) (repository.Copier, error) {
+	if id.IsValid() == false {
+		return nil, exception.ErrIdInvalid
+	}
+
 	doc, err := bson.Marshal(value)
 	if err != nil {
 		return nil, err

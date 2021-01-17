@@ -34,10 +34,12 @@ const (
 	NotFound            = "notFound"
 	InternalServerError = "internalServerError"
 	Conflict            = "conflict"
+	IdInvalid           = "idInvalid"
 )
 
 var ErrNotFound = errors.New(NotFound)
 var ErrConflict = errors.New(Conflict)
+var ErrIdInvalid = errors.New(IdInvalid)
 
 var messages = map[string]string{
 	// User
@@ -68,6 +70,7 @@ var messages = map[string]string{
 	NotFound:            "Not Found",
 	InternalServerError: "Internal Server Error",
 	Conflict:            "Conflict",
+	IdInvalid:           "Id Invalid",
 }
 
 var httpStatus = map[string]int{
@@ -99,6 +102,7 @@ var httpStatus = map[string]int{
 	NotFound:            http.StatusNotFound,
 	InternalServerError: http.StatusInternalServerError,
 	Conflict:            http.StatusConflict,
+	IdInvalid:           http.StatusUnprocessableEntity,
 }
 
 func Message(code string) string {

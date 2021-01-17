@@ -14,6 +14,11 @@ func (id Id) String() string {
 	return string(id)
 }
 
+func (id Id) IsValid() bool {
+	_, err := primitive.ObjectIDFromHex(id.String())
+	return err != nil
+}
+
 func (id Id) Equals(anotherId Id) bool {
 	return string(id) == string(anotherId)
 }
