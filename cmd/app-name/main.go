@@ -73,9 +73,15 @@ func main() {
 
 	router.Mount("/identity", iam.Router(iamService))
 
+	// TODO: document the timeouts
+	// https://blog.cloudflare.com/the-complete-guide-to-golang-net-http-timeouts/
 	server := &http.Server{
-		Addr:    ":" + conf.Port,
-		Handler: router,
+		ReadTimeout:       10 * time.Second,
+		WriteTimeout:      10 * time.Second,
+		IdleTimeout:       120 * time.Second,
+		ReadHeaderTimeout: 10 * time.Second,
+		Addr:              ":" + conf.Port,
+		Handler:           router,
 	}
 
 	var osSignal = make(chan os.Signal, 1)
