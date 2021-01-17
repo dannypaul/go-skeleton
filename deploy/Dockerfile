@@ -3,6 +3,11 @@ FROM golang:1.15.6
 # Create a working directory
 WORKDIR /usr/src/app
 
+# Download dependencies
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
+
 # Copy source code
 COPY [".", "."]
 
