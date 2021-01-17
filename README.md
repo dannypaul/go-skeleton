@@ -17,7 +17,7 @@ This is an opinionated way to implement a production ready service in Golang.
    * Telemetry 🚧
         * Tracing
         * Metrics
-        * Logging
+        * [Logging]((https://github.com/dannypaul/go-skeleton/tree/master/cmd/app-name#logging))
    * HTTP client 🚧
         * Connection pooling
         * Circuit breaking
