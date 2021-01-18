@@ -25,16 +25,16 @@ func Connect(ctx context.Context) *Client {
 		log.Fatal().Err(err).Msg("Error occurred while creating the MongoDB client")
 	}
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
-	defer cancel()
+	ctx, cancelConnect := context.WithTimeout(ctx, 20*time.Second)
+	defer cancelConnect()
 
 	err = client.Connect(ctx)
 	if err != nil {
 		log.Fatal().Err(err).Msg("Error occurred while trying to connect to MongoDB")
 	}
 
-	ctx, cancel = context.WithTimeout(ctx, 20*time.Second)
-	defer cancel()
+	ctx, cancelPing := context.WithTimeout(ctx, 35*time.Second)
+	defer cancelPing()
 
 	err = client.Ping(ctx, readpref.Primary())
 	if err != nil {
