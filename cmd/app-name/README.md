@@ -19,11 +19,17 @@ Multi stage Docker images typically contain the compiled go binary and other sup
 
 ## Graceful shutdown
 
+```go
+var osSignal = make(chan os.Signal, 1)
+signal.Notify(osSignal, syscall.SIGINT, syscall.SIGKILL, syscall.SIGTERM)
+```
+We create a channel and use it to listen for OS signals.
+
 When our server receives an OS signal to shut down we do the following:
 
 - Stop receiving new requests
 - Wait for ongoing requests to complete
-- Release shared resources like database connections 
+- Release shared resources like database connections
 
 `server.Shutdown(ctx)` first stops receiving new requests, then closes all idle connections, and then waits for ongoing requests to complete.
 

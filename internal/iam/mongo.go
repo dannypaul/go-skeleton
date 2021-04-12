@@ -17,7 +17,7 @@ func NewMongoUserRepo(client *mongo.Client) (UserRepo, error) {
 		return nil, err
 	}
 
-	collection := mongo.Collection{Collection: client.Database(conf.MongoDbName).Collection(UserCollectionName)}
+	collection := mongo.Collection{Collection: client.Database(conf.MongoDatabasebName).Collection(UserCollectionName)}
 
 	return mongoUserRepo{collection}, err
 }
@@ -34,7 +34,7 @@ func NewMongoChallengeRepo(client *mongo.Client) (ChallengeRepo, error) {
 		return nil, err
 	}
 
-	collection := mongo.Collection{Collection: client.Database(conf.MongoDbName).Collection(ChallengeCollectionName)}
+	collection := mongo.Collection{Collection: client.Database(conf.MongoDatabasebName).Collection(ChallengeCollectionName)}
 
 	return mongoChallengeRepo{collection}, err
 }

@@ -42,12 +42,12 @@ func main() {
 
 	log.Info().Msg("Starting database migration")
 
-	migrationDriver, err := mongodb.WithInstance(mongoDbClient.Client, &mongodb.Config{DatabaseName: conf.MongoDbName})
+	migrationDriver, err := mongodb.WithInstance(mongoDbClient.Client, &mongodb.Config{DatabaseName: conf.MongoDatabasebName})
 	if err != nil {
 		log.Fatal().Err(err).Msg("error initialising MongoDB migration driver")
 	}
 
-	migration, err := migrate.NewWithDatabaseInstance(conf.MigrationSourcePath, conf.MongoDbName, migrationDriver)
+	migration, err := migrate.NewWithDatabaseInstance(conf.MigrationSourcePath, conf.MongoDatabasebName, migrationDriver)
 	if err != nil {
 		log.Fatal().Err(err).Msg("Error initialising migration")
 	}
@@ -88,7 +88,8 @@ func main() {
 	signal.Notify(osSignal, syscall.SIGINT, syscall.SIGKILL, syscall.SIGTERM)
 
 	go func() {
-		if err = server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		err := server.ListenAndServe()
+		if err != http.ErrServerClosed {
 			log.Fatal().Err(err).Msg("Server stopped because of an error")
 		}
 	}()
@@ -97,7 +98,6 @@ func main() {
 	s := <-osSignal
 	log.Info().Msgf("Received os signal: %+v", s)
 
-	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer func() {
 		log.Info().Msg("Server shutdown successful")
 
@@ -106,10 +106,11 @@ func main() {
 
 		log.Info().Msg("Released all shared resources")
 
-		cancel()
-
 		os.Exit(0)
 	}()
+
+	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()
 
 	err = server.Shutdown(ctx)
 	if err != nil {

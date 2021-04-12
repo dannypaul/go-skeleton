@@ -6,7 +6,7 @@ services:
     container_name: mongo
     ports:
       - 27017:27017
-  hex-backend:
+  app-name:
     image: $REGISTRY_PROJECT/app-name
     container_name: app-name
     ports:
@@ -14,10 +14,9 @@ services:
     environment:
       - PORT=8080
       - MONGO_URI=mongodb://mongo:27017/app-name
-      - MONGO_DB_NAME=app-name
+      - MONGO_DATABASE_NAME=app-name
       - JWT_SECRET=jwt-secret
       - JWT_TTL=1h
-      - CHALLENGE_TTL=1s
+      - CHALLENGE_TTL=10s
     depends_on:
-      - fake-service
       - mongo

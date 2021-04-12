@@ -35,7 +35,7 @@ type Config struct {
 	SeedEmailId         string
 	SeedPhoneNumber     string
 	MongoURI            string
-	MongoDbName         string
+	MongoDatabasebName  string
 	JwtSecret           string
 	JwtTTL              time.Duration
 	ChallengeTTL        time.Duration
@@ -53,7 +53,7 @@ func Get() (Config, error) {
 	conf.SeedPhoneNumber = e.lookup("SEED_PHONE_NUMBER")
 
 	conf.MongoURI = e.lookup("MONGO_URI")
-	conf.MongoDbName = e.lookup("MONGO_DB_NAME")
+	conf.MongoDatabasebName = e.lookup("MONGO_DATABASE_NAME")
 
 	conf.LogLevel = e.lookup("LOG_LEVEL")
 
