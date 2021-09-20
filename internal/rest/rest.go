@@ -76,16 +76,16 @@ type Error struct {
 }
 
 type ErrorRes struct {
-	Errors    []Error `json:"errors"`
-	RequestId string  `json:"requestId"`
+	Errors        []Error `json:"errors"`
+	CorrelationID string  `json:"correlationId"`
 }
 
 func EncodeRes(w http.ResponseWriter, r *http.Request, res interface{}, err error) {
 	w.Header().Set(header.ContentType, "application/json")
 	if err != nil {
 		errList := ErrorRes{
-			Errors:    []Error{{Message: exception.Message(err.Error()), Code: err.Error()}},
-			RequestId: r.Context().Value("requestId").(string),
+			Errors:        []Error{{Message: exception.Message(err.Error()), Code: err.Error()}},
+			CorrelationID: r.Context().Value("correlationId").(string),
 		}
 
 		errListJson, _ := json.Marshal(errList)
@@ -96,8 +96,8 @@ func EncodeRes(w http.ResponseWriter, r *http.Request, res interface{}, err erro
 
 		if status == http.StatusInternalServerError {
 			errList = ErrorRes{
-				Errors:    []Error{{Message: exception.Message(err.Error()), Code: exception.InternalServerError}},
-				RequestId: r.Context().Value("requestId").(string),
+				Errors:        []Error{{Message: exception.Message(err.Error()), Code: exception.InternalServerError}},
+				CorrelationID: r.Context().Value("correlationId").(string),
 			}
 		}
 

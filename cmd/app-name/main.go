@@ -69,7 +69,7 @@ func main() {
 
 	router := chi.NewRouter()
 
-	router.Use(middleware.RequestId, middleware.Auth)
+	router.Use(middleware.CorrelationId, middleware.Auth)
 
 	router.Mount("/identity", iam.Router(iamService))
 

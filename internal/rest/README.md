@@ -14,11 +14,11 @@ When a request results in an error, the `EncodeRes` responds to the client with 
 		"code": "<error-code>",
 		"message": "<error-message>"
 	}],
-	"requestId": "<request-id>"
+	"correlationId": "<correlation-id>"
 }
 ```
 
-If the request had a valid string set in the `X-Request-ID` header, the it will be set in the `requestId` key of the json response.
+If the request had a valid string set in the `X-Correlation-ID` header, then it will be set in the `correlationId` key of the json response.
 
 The `errors` key of the json response contains the list of error codes and their corresponding error messages of all the errors that occurred as part of this request.
 
@@ -31,7 +31,7 @@ When an unknown error (one that is not defined in `internal/exception`) occurs `
 		"code": "internalServerError",
 		"message": "Internal Server Error"
 	}],
-	"requestId": "<request-id>"
+	"correlationId": "<correlation-id>"
 }
 ```
 
