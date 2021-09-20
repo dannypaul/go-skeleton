@@ -9,7 +9,7 @@ This is an opinionated way to implement a production ready service in Golang.
         * [Migration](https://github.com/dannypaul/go-skeleton/tree/master/cmd/app-name#database-migration)  
    * [Graceful shutdown](https://github.com/dannypaul/go-skeleton/tree/master/cmd/app-name#graceful-shutdown)
    * [Middleware](https://github.com/dannypaul/go-skeleton/tree/master/internal/middleware)
-        * [Request ID middleware](https://github.com/dannypaul/go-skeleton/tree/master/internal/middleware#request-id-middleware)
+        * [Correlation ID middleware](https://github.com/dannypaul/go-skeleton/tree/master/internal/middleware#correlation-id-middleware)
         * [Auth middleware](https://github.com/dannypaul/go-skeleton/tree/master/internal/middleware#auth-middleware)
    * [Configuration managment](https://github.com/dannypaul/go-skeleton/tree/master/internal/config)
    * Documentation 🚧
