@@ -9,5 +9,5 @@ require (
 	github.com/google/uuid v1.2.0
 	github.com/rs/zerolog v1.23.0
 	go.mongodb.org/mongo-driver v1.5.4
-	golang.org/x/crypto v0.7.0
+	golang.org/x/crypto v0.17.0
 )
